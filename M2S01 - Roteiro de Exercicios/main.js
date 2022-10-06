@@ -84,7 +84,13 @@ app.post('/orders', (request, response) => {
     },
     created_at: new Date().toLocaleDateString('pt-BR')
   }
+
+  orders.push(order)
+
+  response.status(201).json(order)
 })
+
+app.get('/order/:id', (request, response) => {})
 
 app.listen(3333, () => {
   console.log('Server is online')
