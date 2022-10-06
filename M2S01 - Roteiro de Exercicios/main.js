@@ -69,19 +69,15 @@ app.get('/orders', (request, response) => {
 
 app.post('/orders', (request, response) => {
   const order = {
-    order: {
-      order_id: uuidv4(),
-      order_notes: request.body.order_notes,
-      payment_method: request.body.payment_method,
-      payment_status: true || false,
-      products: []
-    },
-    client: {
-      client_name: request.body.client_name,
-      client_ssn: request.body.client_ssn,
-      client_address: request.body.client_address,
-      client_phone: request.body.client_phone
-    },
+    _id: uuidv4(),
+    order_notes: request.body.order_notes,
+    payment_method: request.body.payment_method,
+    products: [],
+    client_name: request.body.client_name,
+    client_ssn: request.body.client_ssn,
+    client_address: request.body.client_address,
+    client_phone: request.body.client_phone,
+
     created_at: new Date().toLocaleDateString('pt-BR')
   }
 
@@ -90,7 +86,15 @@ app.post('/orders', (request, response) => {
   response.status(201).json(order)
 })
 
-app.get('/order/:id', (request, response) => {})
+app.get('/orders/:id', (request, response) => {
+  const findOrder = orders.find(order => order._id === request.params.id)
+
+  if (!findOrder) {
+    return response.status(404).json({ error: 'Sorry, order not found!' })
+  }
+
+  response.json(findOrder)
+})
 
 app.listen(3333, () => {
   console.log('Server is online')
