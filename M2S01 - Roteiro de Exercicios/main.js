@@ -96,13 +96,43 @@ app.get('/orders/:id', (request, response) => {
   response.json(findOrder)
 })
 
+app.put('/orders/:id', (request, response) => {
+  const findOrder = orders.find(order => order._id === request.params.id)
 
+  if (!findOrder) {
+    return response.status(404).json({ error: 'Sorry, order not found!' })
+  }
 
-app.post('/register', (request, response) => {
-  
+  const updatedOrder = orders.map(order => {
+    if (order._id === request.params.id) {
+      order.order_notes = request.body.order_notes
+      order.payment_method = request.body.payment_method
+      order.products = []
+      order.client_name = request.body.client_name
+      order.client_ssn = request.body.client_ssn
+      order.client_address = request.body.client_address
+      order.client_phone = request.body.client_phone
+    }
+    return order
+  })
+  orders = [...updatedOrder]
+
+  response.json(findOrder)
 })
 
+app.delete('/orders/:id', (request, response) => {
+  const findOrder = orders.find(order => order._id === request.params.id)
 
+  if (!findOrder) {
+    return response.status(404).json({ error: 'Order not found!' })
+  }
+
+  const filteredOrders = orders.filter(order => order._id !== request.params.id)
+
+  orders = [...filteredOrders]
+
+  response.json({ success: 'Order deleted!' })
+})
 
 app.listen(3333, () => {
   console.log('Server is online')
