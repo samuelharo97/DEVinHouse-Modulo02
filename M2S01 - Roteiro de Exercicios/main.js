@@ -96,6 +96,14 @@ app.get('/orders/:id', (request, response) => {
   response.json(findOrder)
 })
 
+
+
+app.post('/register', (request, response) => {
+  
+})
+
+
+
 app.listen(3333, () => {
   console.log('Server is online')
 })
