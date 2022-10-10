@@ -1,3 +1,14 @@
+import { createGlobalStyle } from 'styled-components'
+
+export const GlobalStyles = createGlobalStyle`
+*, 
+*::after, 
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -13,6 +24,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+ 
+}
+
+#root {
+  width: 100%;
 }
 
 a {
@@ -29,6 +45,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -68,3 +85,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+`
