@@ -1,8 +1,9 @@
 import { PizzaCard } from '@components'
+import { Container } from './styles'
 
 export const Menu = ({ pizzas }) => {
   return (
-    <div>
+    <Container>
       <ul>
         {pizzas ? (
           pizzas.map(pizza => (
@@ -12,6 +13,6 @@ export const Menu = ({ pizzas }) => {
           <h1>Loading pizzas..</h1>
         )}
       </ul>
-    </div>
+    </Container>
   )
 }

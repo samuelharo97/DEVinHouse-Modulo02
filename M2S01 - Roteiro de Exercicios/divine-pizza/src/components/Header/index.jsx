@@ -1,4 +1,5 @@
 import { Container } from './styles'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
   return (
@@ -6,9 +7,9 @@ export const Header = () => {
       <h1>Divine Pizza</h1>
       <nav>
         <ul>
-          <li>Home</li>
-          <li>Menu</li>
-          <li>Checkout</li>
+          <Link to={'/'}>Home</Link>
+          <Link to={'/menu'}>Menu</Link>
+          <Link to={'/orders'}>Orders</Link>
         </ul>
       </nav>
     </Container>

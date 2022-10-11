@@ -79,7 +79,7 @@ app.post('/orders', (request, response) => {
     _id: uuidv4(),
     order_notes: request.body.order_notes,
     payment_method: request.body.payment_method,
-    products: [],
+    products: request.body.products,
     client_name: request.body.client_name,
     client_ssn: request.body.client_ssn,
     client_address: request.body.client_address,
@@ -114,7 +114,7 @@ app.put('/orders/:id', (request, response) => {
     if (order._id === request.params.id) {
       order.order_notes = request.body.order_notes
       order.payment_method = request.body.payment_method
-      order.products = []
+      order.products = request.body.products
       order.client_name = request.body.client_name
       order.client_ssn = request.body.client_ssn
       order.client_address = request.body.client_address

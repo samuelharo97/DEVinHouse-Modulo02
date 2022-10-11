@@ -8,7 +8,9 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       <Header />
-      <AppRoutes />
+      <main>
+        <AppRoutes />
+      </main>
     </BrowserRouter>
   )
 }

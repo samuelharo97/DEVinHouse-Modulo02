@@ -1,3 +1,7 @@
+import { Menu } from '@components'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+
 export const DivineMenu = () => {
   const [pizzas, setPizzas] = useState([])
 

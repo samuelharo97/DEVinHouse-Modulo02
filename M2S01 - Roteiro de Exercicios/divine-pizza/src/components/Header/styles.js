@@ -5,5 +5,12 @@ export const Container = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 105px;
-  padding: 20px 20px;
+  padding: 30px 60px 0;
+  grid-area: header;
+  align-items: center;
+
+  ul {
+    display: flex;
+    gap: 12px;
+  }
 `

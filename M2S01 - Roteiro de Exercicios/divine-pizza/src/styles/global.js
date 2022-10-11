@@ -28,7 +28,19 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 #root {
+  display: grid;
   width: 100%;
+  height: 100vh;
+  grid-template-rows: 125px auto;
+  grid-row-gap: 75px;
+  grid-template-areas: "header" "content";
+}
+
+main {
+  grid-area: content;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
 }
 
 a {
