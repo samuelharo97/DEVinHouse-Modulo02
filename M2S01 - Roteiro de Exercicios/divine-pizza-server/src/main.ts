@@ -1,13 +1,16 @@
+/* eslint-disable prefer-const */
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import cors from 'cors';
+import { IPizzas } from './types/pizza.types';
+import { IOrder } from './types/order.types';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const pizzas = [
+/* const pizzas = [
   {
     id: uuidv4(),
     url: 'https://images.unsplash.com/photo-1604917877934-07d8d248d396?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -48,18 +51,21 @@ const pizzas = [
     price: 48,
     ingredients: ['Cheese', 'Special Sauce', 'Pineapple'],
   },
-];
+]; */
 
-let orders = [];
+let pizzas: IPizzas[] = [];
+
+let orders: IOrder[] = [];
 
 app.get('/pizzas', (request, response) => {
   response.status(200).json(pizzas);
 });
 
 app.post('/pizzas', (request, response) => {
-  const new_pizza = {
+  const new_pizza: IPizzas = {
     id: uuidv4(),
     name: request.body.name,
+    url: request.body.url,
     description: request.body.description,
     price: request.body.price,
     ingredients: request.body.ingredients,
