@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response } from 'express';
-import { IPizzas } from '../types/pizza.types';
+import {
+  IBodyUpdatePizzas,
+  IPizzas,
+  IRouteParamsPizzas,
+} from '../types/pizza.types';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 
@@ -36,7 +40,10 @@ export function findAll(request: Request, response: Response) {
   response.status(200).json(pizzas);
 }
 
-export function findOne(request: Request, response: Response) {
+export function findOne(
+  request: Request<IRouteParamsPizzas>,
+  response: Response,
+) {
   const pizzas = getPizzaData();
   const findPizza = pizzas.find((pizza) => pizza.id === request.params.id);
 
@@ -47,7 +54,10 @@ export function findOne(request: Request, response: Response) {
   response.json(findPizza);
 }
 
-export function update(request: Request, response: Response) {
+export function update(
+  request: Request<IRouteParamsPizzas, {}, IBodyUpdatePizzas>,
+  response: Response,
+) {
   const pizzas = getPizzaData();
 
   const findPizzas = pizzas.find((pizzas) => pizzas.id === request.params.id);
@@ -72,7 +82,10 @@ export function update(request: Request, response: Response) {
   response.json({ sucess: 'Pizza updated!' });
 }
 
-export function destroy(request: Request, response: Response) {
+export function destroy(
+  request: Request<IRouteParamsPizzas>,
+  response: Response,
+) {
   const pizzas = getPizzaData();
 
   const findPizzas = pizzas.find((pizzas) => pizzas.id === request.params.id);

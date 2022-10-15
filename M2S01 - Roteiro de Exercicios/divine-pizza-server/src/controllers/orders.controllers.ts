@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response } from 'express';
-import { IOrder } from '../types/order.types';
+import {
+  IBodyUpdateOrder,
+  IOrder,
+  IRouteParamsOrders,
+} from '../types/order.types';
 import { v4 as uuidv4 } from 'uuid';
 import { ORDER_STATUS } from '../utils/order_status';
 import fs from 'fs';
-import { STATUS_CODES } from 'http';
-import { finished } from 'stream';
 
 const ORDERS_DB = 'orders.json';
 
@@ -43,9 +45,12 @@ export function findAll(request: Request, response: Response) {
   response.status(200).json(orders);
 }
 
-export function findOne(request: Request, response: Response) {
+export function findOne(
+  request: Request<IRouteParamsOrders>,
+  response: Response,
+) {
   const orders = getOrderData();
-  const findOrder = orders.find((order) => order._id === request.params.id);
+  const findOrder = orders.find((order) => order._id === request.params._id);
 
   if (!findOrder) {
     return response.status(404).json({ error: 'Sorry, order not found!' });
@@ -54,23 +59,26 @@ export function findOne(request: Request, response: Response) {
   response.json(findOrder);
 }
 
-export function destroy(request: Request, response: Response) {
+export function destroy(
+  request: Request<IRouteParamsOrders>,
+  response: Response,
+) {
   const orders = getOrderData();
 
-  const findOrder = orders.find((order) => order._id === request.params.id);
+  const findOrder = orders.find((order) => order._id === request.params._id);
 
   if (!findOrder) {
     return response.status(404).json({ error: 'Order not found!' });
   }
 
-  if (findOrder.status === STATUS_CODES.FINISHED || STATUS_CODES.CANCELLED) {
+  if (findOrder.status === ORDER_STATUS.FINISHED || ORDER_STATUS.CANCELLED) {
     return response.status(401).json({
       error: 'Cannot update order when order is already finished or cancelled.',
     });
   }
 
   const filteredOrders = orders.filter(
-    (order) => order._id !== request.params.id,
+    (order) => order._id !== request.params._id,
   );
 
   fs.writeFileSync(ORDERS_DB, JSON.stringify(filteredOrders));
@@ -78,25 +86,30 @@ export function destroy(request: Request, response: Response) {
   response.json({ success: 'Order deleted!' });
 }
 
-export function update(request: Request, response: Response) {
+export function update(
+  request: Request<IRouteParamsOrders, {}, IBodyUpdateOrder>,
+  response: Response,
+) {
   const orders = getOrderData();
 
-  const findOrder = orders.find((order) => order._id === request.params.id);
+  const findOrder = orders.find((order) => order._id === request.params._id);
 
   if (!findOrder) {
     return response.status(404).json({ error: 'Sorry, order not found!' });
   }
 
   const updatedOrder = orders.map((order) => {
-    if (order._id === request.params.id) {
-      order.order_notes = request.body.order_notes;
-      order.payment_method = request.body.payment_method;
-      order.products = request.body.products;
-      order.client_name = request.body.client_name;
-      order.client_ssn = request.body.client_ssn;
-      order.client_address = request.body.client_address;
-      order.client_phone = request.body.client_phone;
-      order.status = request.body.status;
+    if (order._id === request.params._id) {
+      order.order_notes = request.body.order_notes || order.order_notes;
+      order.payment_method =
+        request.body.payment_method || order.payment_method;
+      order.products = request.body.products || order.products;
+      order.client_name = request.body.client_name || order.client_name;
+      order.client_ssn = request.body.client_ssn || order.client_ssn;
+      order.client_address =
+        request.body.client_address || order.client_address;
+      order.client_phone = request.body.client_phone || order.client_phone;
+      order.status = request.body.status || order.status;
     }
     return order;
   });
