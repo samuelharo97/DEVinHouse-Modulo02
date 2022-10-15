@@ -2,10 +2,9 @@
   "name": "pizzaria_divina_pizza",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "server": "nodemon main.js",
+    "server": "nodemon main.ts",
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint --fix --ext .ts src/"
   },

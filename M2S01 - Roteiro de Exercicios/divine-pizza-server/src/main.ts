@@ -1,14 +1,17 @@
 /* eslint-disable prefer-const */
 import express from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import cors from 'cors';
-import { IPizzas } from './types/pizza.types';
-import { IOrder } from './types/order.types';
+import { orderRoutes } from './routes/order.routes';
+import { pizzaRoutes } from './routes/pizza.routes';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(orderRoutes);
+app.use(pizzaRoutes);
+
+export default app;
 
 /* const pizzas = [
   {
@@ -52,103 +55,3 @@ app.use(cors());
     ingredients: ['Cheese', 'Special Sauce', 'Pineapple'],
   },
 ]; */
-
-let pizzas: IPizzas[] = [];
-
-let orders: IOrder[] = [];
-
-app.get('/pizzas', (request, response) => {
-  response.status(200).json(pizzas);
-});
-
-app.post('/pizzas', (request, response) => {
-  const new_pizza: IPizzas = {
-    id: uuidv4(),
-    name: request.body.name,
-    url: request.body.url,
-    description: request.body.description,
-    price: request.body.price,
-    ingredients: request.body.ingredients,
-  };
-
-  pizzas.push(new_pizza);
-
-  response.status(201).json(new_pizza);
-});
-
-app.get('/orders', (request, response) => {
-  response.status(200).json(orders);
-});
-
-app.post('/orders', (request, response) => {
-  const order = {
-    _id: uuidv4(),
-    order_notes: request.body.order_notes,
-    payment_method: request.body.payment_method,
-    products: request.body.products,
-    client_name: request.body.client_name,
-    client_ssn: request.body.client_ssn,
-    client_address: request.body.client_address,
-    client_phone: request.body.client_phone,
-
-    created_at: new Date().toLocaleDateString('pt-BR'),
-  };
-
-  orders.push(order);
-
-  response.status(201).json(order);
-});
-
-app.get('/orders/:id', (request, response) => {
-  const findOrder = orders.find((order) => order._id === request.params.id);
-
-  if (!findOrder) {
-    return response.status(404).json({ error: 'Sorry, order not found!' });
-  }
-
-  response.json(findOrder);
-});
-
-app.put('/orders/:id', (request, response) => {
-  const findOrder = orders.find((order) => order._id === request.params.id);
-
-  if (!findOrder) {
-    return response.status(404).json({ error: 'Sorry, order not found!' });
-  }
-
-  const updatedOrder = orders.map((order) => {
-    if (order._id === request.params.id) {
-      order.order_notes = request.body.order_notes;
-      order.payment_method = request.body.payment_method;
-      order.products = request.body.products;
-      order.client_name = request.body.client_name;
-      order.client_ssn = request.body.client_ssn;
-      order.client_address = request.body.client_address;
-      order.client_phone = request.body.client_phone;
-    }
-    return order;
-  });
-  orders = [...updatedOrder];
-
-  response.json(findOrder);
-});
-
-app.delete('/orders/:id', (request, response) => {
-  const findOrder = orders.find((order) => order._id === request.params.id);
-
-  if (!findOrder) {
-    return response.status(404).json({ error: 'Order not found!' });
-  }
-
-  const filteredOrders = orders.filter(
-    (order) => order._id !== request.params.id,
-  );
-
-  orders = [...filteredOrders];
-
-  response.json({ success: 'Order deleted!' });
-});
-
-app.listen(3333, () => {
-  console.log('Server is online');
-});
