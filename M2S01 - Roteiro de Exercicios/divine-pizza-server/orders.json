@@ -9,6 +9,7 @@
     "client_address": "My house",
     "client_phone": "558485754",
     "status": "Order is in production",
+    "price": 60,
     "created_at": "15/10/2022"
   }
 ]

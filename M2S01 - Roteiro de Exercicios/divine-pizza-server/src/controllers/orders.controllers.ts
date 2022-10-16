@@ -27,6 +27,7 @@ export function create(request: Request<{}, {}, IOrder>, response: Response) {
     client_ssn: request.body.client_ssn,
     client_address: request.body.client_address,
     client_phone: request.body.client_phone,
+    total: request.body.total,
     status: ORDER_STATUS.PRODUCTION,
     created_at: new Date().toLocaleDateString('pt-BR'),
   };

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 
-import { Home, DivineMenu, Orders } from '@pages'
+import { Home, DivineMenu, Orders, Kitchen } from '@pages'
 
 export const AppRoutes = () => {
   return (
@@ -8,6 +8,7 @@ export const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/orders" element={<Orders />} />
       <Route path="/menu" element={<DivineMenu />} />
+      <Route path="/kitchen" element={<Kitchen />} />
     </Routes>
   )
 }

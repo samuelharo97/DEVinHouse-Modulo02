@@ -3,7 +3,7 @@ import { KitchenOrderCard } from '@components'
 import { useEffect, useState } from 'react'
 import { Container } from './styles'
 
-export const Orders = () => {
+export const Kitchen = () => {
   const [orders, setOrders] = useState([])
 
   const getOrders = async () => {
@@ -24,9 +24,7 @@ export const Orders = () => {
     <Container>
       <h2>Orders</h2>
       {orders.map(order => {
-        if (order.status == 'Order is on the way') {
-          return <KitchenOrderCard key={order._id} order={order} />
-        }
+        return <KitchenOrderCard key={order._id} order={order} />
       })}
     </Container>
   )

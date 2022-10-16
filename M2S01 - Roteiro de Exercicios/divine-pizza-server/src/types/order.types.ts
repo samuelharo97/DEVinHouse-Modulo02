@@ -8,6 +8,7 @@ export interface IOrder {
   client_address: string;
   client_phone: string;
   created_at: string;
+  total: number;
   status: string;
 }
 export interface IBodyUpdateOrder {

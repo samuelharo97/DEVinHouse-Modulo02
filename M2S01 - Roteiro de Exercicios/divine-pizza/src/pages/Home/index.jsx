@@ -1,3 +1,5 @@
+import { Form } from '@components'
+
 export const Home = () => {
-  return <h2>form under construction</h2>
+  return <Form />
 }
