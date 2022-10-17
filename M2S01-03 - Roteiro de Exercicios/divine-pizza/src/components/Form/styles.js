@@ -8,6 +8,7 @@ export const Container = styled.form`
   section {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     width: 65%;
     padding: 40px;
 
@@ -18,7 +19,6 @@ export const Container = styled.form`
       width: 80%;
       height: 38px;
       text-align: center;
-      margin-bottom: 10px;
     }
 
     button {
@@ -47,4 +47,5 @@ export const ColumnWrapper = styled.div`
 
 export const RowWrapper = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `

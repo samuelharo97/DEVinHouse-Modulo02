@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { KitchenOrderCard } from '@components'
+import { DeliveryOrderCard } from '@components'
 import { useEffect, useState } from 'react'
 import { Container } from './styles'
 
@@ -22,10 +22,10 @@ export const Orders = () => {
 
   return (
     <Container>
-      <h2>Orders</h2>
+      <h2>Ready for delivery</h2>
       {orders.map(order => {
-        if (order.status == 'Order is on the way') {
-          return <KitchenOrderCard key={order._id} order={order} />
+        if (order.status === 'Order is on the way') {
+          return <DeliveryOrderCard key={order._id} order={order} />
         }
       })}
     </Container>

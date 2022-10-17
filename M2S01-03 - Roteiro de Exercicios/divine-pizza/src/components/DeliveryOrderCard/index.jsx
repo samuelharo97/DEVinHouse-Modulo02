@@ -6,17 +6,18 @@ export const DeliveryOrderCard = ({ order }) => {
     <Card>
       <div className="client">
         <p>Client: {order.client_name}</p>
-        <p>Order: {order.products}</p>
-        <p>Placed: {order.created_at}</p>
+        <p>Address: {order.client_address}</p>
+        <p>Phone: {order.client_phone}</p>
+        <p>Payment: {order.payment_method}</p>
       </div>
       <div>
-        <p> $ {order.price} </p>
+        <p> $ {order.total} </p>
       </div>
     </Card>
   )
 }
 
-KitchenOrderCard.propTypes = {
+DeliveryOrderCard.propTypes = {
   order: PropTypes.shape({
     _id: PropTypes.string,
     order_notes: PropTypes.string,

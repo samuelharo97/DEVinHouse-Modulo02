@@ -24,7 +24,8 @@ export const Kitchen = () => {
     <Container>
       <h2>Orders</h2>
       {orders.map(order => {
-        return <KitchenOrderCard key={order._id} order={order} />
+        if (order.status === 'Order is in production')
+          return <KitchenOrderCard key={order._id} order={order} />
       })}
     </Container>
   )

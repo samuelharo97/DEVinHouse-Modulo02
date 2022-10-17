@@ -9,7 +9,20 @@
     "client_address": "My house",
     "client_phone": "558485754",
     "status": "Order is in production",
-    "price": 60,
+    "total": 60,
+    "created_at": "15/10/2022"
+  },
+  {
+    "_id": "2aef335c-e099-4cbd-aeb6-4b3c138e7458",
+    "order_notes": "No pineapple",
+    "payment_method": "Credit Card",
+    "products": ["Pepperoni Pizza, Meat Pizza"],
+    "client_name": "Samuel Haro",
+    "client_ssn": "45646231",
+    "client_address": "My house",
+    "client_phone": "558485754",
+    "status": "Order is on the way",
+    "total": 60,
     "created_at": "15/10/2022"
   }
 ]

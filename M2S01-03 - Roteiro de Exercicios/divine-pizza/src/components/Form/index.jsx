@@ -4,11 +4,16 @@ import { useForm } from 'react-hook-form'
 
 export const Form = () => {
   const [ingredientList, setIngredientList] = useState([])
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, register, setValue } = useForm()
   const ingredientRef = useRef()
 
   const addIngredient = value => {
+    if (value == '') {
+      return
+    }
+
     setIngredientList([...ingredientList, value])
+    setValue(ingredientRef.current, '')
   }
 
   const submitForm = data => {
@@ -49,12 +54,7 @@ export const Form = () => {
             />
             <button
               type="button"
-              onClick={() =>
-                setIngredientList([
-                  ...ingredientList,
-                  ingredientRef.current.value
-                ])
-              }
+              onClick={() => addIngredient(ingredientRef.current.value)}
             >
               +
             </button>

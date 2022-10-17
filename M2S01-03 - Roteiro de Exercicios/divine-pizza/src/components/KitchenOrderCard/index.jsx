@@ -10,7 +10,7 @@ export const KitchenOrderCard = ({ order }) => {
         <p>Placed: {order.created_at}</p>
       </div>
       <div>
-        <p> $ {order.price} </p>
+        <p> $ {order.total} </p>
       </div>
     </Card>
   )
