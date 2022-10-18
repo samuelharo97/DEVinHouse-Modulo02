@@ -38,5 +38,13 @@
     "description": "4/10 rated Pizza",
     "price": 41,
     "ingredients": ["Cheese", "Special Sauce", "Pineapple"]
+  },
+  {
+    "id": "727bacc1-73d9-4dce-99af-c70d4f462e37",
+    "name": "4 Queijos",
+    "url": "https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+    "description": "4 cheeses 10/10 rated pizza",
+    "price": 50,
+    "ingredients": ["Cheddar", "Sauce", "Provologne", "Cheese", "More cheese!!"]
   }
 ]

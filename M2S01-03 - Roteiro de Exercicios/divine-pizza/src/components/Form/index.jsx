@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
 import { ColumnWrapper, Container, RowWrapper } from './styles'
 import { useForm } from 'react-hook-form'
+import { useAxios } from '@hooks'
 
 export const Form = () => {
   const [ingredientList, setIngredientList] = useState([])
   const { handleSubmit, register, setValue } = useForm()
   const ingredientRef = useRef()
+  const { postPizza } = useAxios()
 
   const addIngredient = value => {
     if (value == '') {
@@ -17,22 +19,24 @@ export const Form = () => {
   }
 
   const submitForm = data => {
-    console.log(data)
+    postPizza(data, ingredientList)
   }
-
-  console.log(ingredientList)
 
   return (
     <Container onSubmit={handleSubmit(submitForm)}>
       <section>
         <h2>Suggest a pizza: </h2>
         <ColumnWrapper>
-          <label htmlFor="pizza">Pizza name:</label>
-          <input type="text" name="pizza" id="pizza" {...register('pizza')} />
+          <label htmlFor="name">Pizza name:</label>
+          <input type="text" name="name" id="name" {...register('name')} />
         </ColumnWrapper>
         <ColumnWrapper>
           <label htmlFor="url">Image (URL):</label>
           <input type="url" name="url" id="url" {...register('url')} />
+        </ColumnWrapper>
+        <ColumnWrapper>
+          <label htmlFor="price">Price:</label>
+          <input type="number" name="price" id="price" {...register('price')} />
         </ColumnWrapper>
         <ColumnWrapper>
           <label htmlFor="description">Description:</label>
@@ -60,7 +64,7 @@ export const Form = () => {
             </button>
           </RowWrapper>
         </ColumnWrapper>
-        <button className="submit" type="submit">
+        <button className="submit" type="submit" /* onClick={} */>
           Submit
         </button>
       </section>

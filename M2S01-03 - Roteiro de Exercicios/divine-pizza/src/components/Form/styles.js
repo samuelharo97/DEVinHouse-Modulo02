@@ -48,4 +48,5 @@ export const ColumnWrapper = styled.div`
 export const RowWrapper = styled.div`
   display: flex;
   margin-bottom: 10px;
+  gap: 10px;
 `

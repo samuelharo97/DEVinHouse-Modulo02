@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.li`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: solid 1px black;
   border-radius: 4px;
   width: 300px;

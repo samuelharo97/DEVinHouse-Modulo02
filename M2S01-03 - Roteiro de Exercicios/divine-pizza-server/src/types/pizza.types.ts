@@ -3,7 +3,7 @@ export interface IPizzas {
   url: string;
   name: string;
   description: string;
-  price: number;
+  price: string;
   ingredients: string[];
 }
 export interface IBodyUpdatePizzas {
@@ -11,7 +11,7 @@ export interface IBodyUpdatePizzas {
   url?: string;
   name?: string;
   description?: string;
-  price?: number;
+  price?: string;
   ingredients?: string[];
 }
 
