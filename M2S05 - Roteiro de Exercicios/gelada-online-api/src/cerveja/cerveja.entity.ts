@@ -1,15 +1,20 @@
-import { IsString, Contains } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { BeerType } from './beer-type.enum';
 
 export class Beer {
+  @IsNotEmpty()
   @IsString()
   name: string;
 
+  @IsNotEmpty()
   @IsString()
   description: string;
 
+  @IsNotEmpty()
   @IsString()
   factory_name: string;
 
-  @Contains('Ipa' || 'Lager' || 'Weizen' || 'Pilsen')
-  category: string;
+  @IsNotEmpty()
+  @IsEnum(BeerType)
+  category: BeerType;
 }
