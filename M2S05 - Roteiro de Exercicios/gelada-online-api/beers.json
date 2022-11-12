@@ -1,3 +1,26 @@
 [
-  
+  {
+    "name": "Brahma",
+    "description": "Brazilian beer",
+    "factory_name": "Ambev",
+    "category": "Pilsen"
+  },
+  {
+    "name": "Heineken",
+    "description": "Brazilian beer",
+    "factory_name": "Ambev",
+    "category": "Pilsen"
+  },
+  {
+    "name": "Heineken3",
+    "description": "Brazilian beer",
+    "factory_name": "Ambev",
+    "category": "Pilsen"
+  },
+  {
+    "name": "Skol",
+    "description": "Brazilian beer",
+    "factory_name": "Ambev",
+    "category": "Pilsen"
+  }
 ]
