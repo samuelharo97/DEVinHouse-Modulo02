@@ -1,4 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { categoryEnum } from 'src/utils/products.enum';
 import { ILike, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDTO } from './dto/find-product.dto';
@@ -13,6 +14,7 @@ export class ProductsService {
   ) {}
 
   passILike(obj) {
+    // monday
     const aux = { ...obj };
     Object.keys(obj).forEach((key, index) => {
       aux[key] = ILike(`%${obj[key]}%`);
@@ -22,11 +24,48 @@ export class ProductsService {
     return aux;
   }
 
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async insert(product: CreateProductDto): Promise<ProductEntity> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await this.productRepository.insert({
+          ...product,
+          category: parseInt(categoryEnum[product.category]),
+        });
+        const { id } = response.generatedMaps[0];
+        let created = new ProductEntity();
+        created = { ...product, id: id };
+        resolve(created);
+      } catch (error) {
+        console.log('insert error', error);
+        reject({
+          code: error.code,
+          detail: error.detail,
+        });
+      }
+    });
   }
 
-  async findAll(query?): Promise<ProductEntity[]> {
+  async listCategory(body): Promise<ProductEntity[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (body) {
+          resolve(
+            await this.productRepository.find({
+              where: {
+                category: parseInt(body),
+              },
+            }),
+          );
+        }
+        resolve(await this.productRepository.find());
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async findAll(query?: FindProductDTO): Promise<ProductEntity[]> {
+    console.log(query, 'query');
     return new Promise(async (resolve, reject) => {
       try {
         if (query) {
@@ -36,7 +75,6 @@ export class ProductsService {
             }),
           );
         }
-
         resolve(await this.productRepository.find());
       } catch (error) {
         reject(error);

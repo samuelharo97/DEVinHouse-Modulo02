@@ -23,14 +23,35 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  async create(@Body() createProductDto: CreateProductDto) {
+    try {
+      return await this.productsService.insert(createProductDto);
+    } catch (error) {
+      if (error.code == 23505)
+        throw new HttpException({ reason: error.detail }, HttpStatus.CONFLICT);
+      throw new HttpException({ reason: error }, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get()
-  async findAll(@Query() query: string): Promise<ProductEntity[]> {
+  async findAll(@Query() query: FindProductDTO): Promise<ProductEntity[]> {
     try {
       return await this.productsService.findAll(query);
+    } catch (error) {
+      throw new HttpException(
+        { reason: error?.detail },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get(':category')
+  async findByCategory(
+    @Param('category') category: FindProductDTO,
+  ): Promise<ProductEntity[]> {
+    console.log(category);
+    try {
+      return await this.productsService.listCategory(category);
     } catch (error) {
       throw new HttpException(
         { reason: error?.detail },

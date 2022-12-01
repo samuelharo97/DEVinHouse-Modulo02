@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { categoryEnum } from 'src/utils/products.enum';
 
 export class CreateProductDto {
@@ -8,12 +14,14 @@ export class CreateProductDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly code: string;
+  readonly description: string;
 
+  @IsEnum(categoryEnum)
   readonly category: categoryEnum;
 
   @IsNumber()
-  readonly price: number;
+  readonly value: number;
 
-  readonly stock: number;
+  @IsBoolean()
+  readonly available: boolean;
 }
