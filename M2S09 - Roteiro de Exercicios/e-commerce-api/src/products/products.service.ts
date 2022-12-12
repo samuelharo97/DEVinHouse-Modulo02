@@ -16,7 +16,7 @@ export class ProductsService {
   passILike(obj) {
     // monday
     const aux = { ...obj };
-    Object.keys(obj).forEach((key, index) => {
+    Object.keys(obj).forEach((key) => {
       aux[key] = ILike(`%${obj[key]}%`);
     });
     console.log('-- aux --');

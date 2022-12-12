@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { CartEntity } from './entities/cart.entity';
 
 @Controller('cart')
 export class CartController {
@@ -13,13 +24,15 @@ export class CartController {
   }
 
   @Get()
-  findAll() {
-    return this.cartService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cartService.findOne(+id);
+  async findAll(): Promise<CartEntity[]> {
+    try {
+      return await this.cartService.findAll();
+    } catch (error) {
+      throw new HttpException(
+        { reason: error?.detail },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @Patch(':id')
