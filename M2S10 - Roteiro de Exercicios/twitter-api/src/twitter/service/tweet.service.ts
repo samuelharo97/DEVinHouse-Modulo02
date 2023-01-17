@@ -33,6 +33,18 @@ export class TweetService {
     });
   }
 
+  async listFeed(userId: string) {
+    const feed = await this.tweetRepository
+      .createQueryBuilder('tweet')
+      .leftJoinAndSelect('tweet.user', 'user')
+      .where('user.id = :userId', { userId })
+      .orderBy('tweet.createdAt', 'DESC')
+      .limit(20)
+      .getMany();
+
+    return feed;
+  }
+
   accessTweet(id: number) {
     return new Promise(async (resolve, reject) => {
       const tweet = await this.tweetRepository.findOne({

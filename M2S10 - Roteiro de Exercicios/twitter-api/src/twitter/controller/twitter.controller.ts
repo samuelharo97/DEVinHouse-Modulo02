@@ -1,11 +1,11 @@
 import {
-  Controller,
-  Post,
   Body,
+  Controller,
   Get,
   Param,
-  UseGuards,
+  Post,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
 import { CreateTweetDto } from '../dto/create-tweet.dto';
@@ -20,9 +20,10 @@ export class TwitterController {
     private readonly tweetService: TweetService,
   ) {}
 
-  @Get('feed/:userId')
-  async listFeed(@Param('UserId') UserId: number) {
-    return;
+  @Get('feed')
+  async listFeed(@Request() request) {
+    const feed = await this.tweetService.listFeed(request.user['id']);
+    return feed;
   }
 
   @Post('/tweet')
