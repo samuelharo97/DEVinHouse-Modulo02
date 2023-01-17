@@ -33,6 +33,12 @@ export class TwitterController {
     return tweets;
   }
 
+  @Get('trending')
+  async getTrending() {
+    const trending = await this.tweetService.getTrendingTopics();
+    return trending;
+  }
+
   @Get('/tweets')
   async findAll(@Request() request) {
     const allTweets = await this.tweetService.findAllTweets(request.user['id']);

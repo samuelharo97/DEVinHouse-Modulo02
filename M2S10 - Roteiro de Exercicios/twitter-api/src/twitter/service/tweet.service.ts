@@ -62,6 +62,38 @@ export class TweetService {
     return tweets;
   }
 
+  async getTrendingTopics() {
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const tweets = await this.tweetRepository
+      .createQueryBuilder('tweet')
+      .select('tweet.content')
+      .where('tweet.createdAt > :date', { date })
+      .getMany();
+
+    const hashtags = {};
+    let hashtag;
+    tweets.forEach((tweet) => {
+      hashtag = tweet.content.match(/#\w+/g);
+      if (hashtag) {
+        hashtag.forEach((h) => {
+          if (hashtags[h]) {
+            hashtags[h]++;
+          } else {
+            hashtags[h] = 1;
+          }
+        });
+      }
+    });
+
+    const result = Object.entries(hashtags).map(([hashtag, count]) => ({
+      hashtag,
+      count,
+      date,
+    }));
+    return result;
+  }
+
   accessTweet(id: number) {
     return new Promise(async (resolve, reject) => {
       const tweet = await this.tweetRepository.findOne({
