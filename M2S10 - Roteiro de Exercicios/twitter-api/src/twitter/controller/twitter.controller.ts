@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -24,6 +25,12 @@ export class TwitterController {
   async listFeed(@Request() request) {
     const feed = await this.tweetService.listFeed(request.user['id']);
     return feed;
+  }
+
+  @Get('/hashtag')
+  async getTweetsByHashtag(@Query('hashtag') hashtag: string) {
+    const tweets = await this.tweetService.getTweetsByHashtag(hashtag);
+    return tweets;
   }
 
   @Get('/tweets')

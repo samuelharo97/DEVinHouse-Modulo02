@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateTweetDto } from '../dto/create-tweet.dto';
 import { Tweet } from '../entities/tweet.entity';
 import { User } from '../entities/user.entity';
@@ -53,6 +53,13 @@ export class TweetService {
       .getMany();
 
     return allTweets;
+  }
+
+  async getTweetsByHashtag(hashtag: string): Promise<Tweet[]> {
+    const tweets = await this.tweetRepository.find({
+      where: [{ content: Like(`%${hashtag}%`) }],
+    });
+    return tweets;
   }
 
   accessTweet(id: number) {
