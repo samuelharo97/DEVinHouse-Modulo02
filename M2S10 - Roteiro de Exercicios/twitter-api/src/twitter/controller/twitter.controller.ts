@@ -20,10 +20,17 @@ export class TwitterController {
     private readonly tweetService: TweetService,
   ) {}
 
-  @Get('feed')
+  @Get('/feed')
   async listFeed(@Request() request) {
     const feed = await this.tweetService.listFeed(request.user['id']);
     return feed;
+  }
+
+  @Get('/tweets')
+  async findAll(@Request() request) {
+    const allTweets = await this.tweetService.findAllTweets(request.user['id']);
+
+    return allTweets;
   }
 
   @Post('/tweet')

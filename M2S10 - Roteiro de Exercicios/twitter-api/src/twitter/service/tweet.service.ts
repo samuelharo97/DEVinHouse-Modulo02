@@ -45,6 +45,16 @@ export class TweetService {
     return feed;
   }
 
+  async findAllTweets(userId: string) {
+    const allTweets = await this.tweetRepository
+      .createQueryBuilder('tweet')
+      .leftJoin('tweet.user', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
+
+    return allTweets;
+  }
+
   accessTweet(id: number) {
     return new Promise(async (resolve, reject) => {
       const tweet = await this.tweetRepository.findOne({
