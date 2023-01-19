@@ -3,12 +3,14 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
+import { ChangePasswordDto } from '../dto/change-password.dto';
 import { CreateTweetDto } from '../dto/create-tweet.dto';
 import { TweetService } from '../service/tweet.service';
 import { UserService } from '../service/user.service';
@@ -25,6 +27,16 @@ export class TwitterController {
   async listFeed(@Request() request) {
     const feed = await this.tweetService.listFeed(request.user['id']);
     return feed;
+  }
+
+  @Patch('/change-password')
+  async updatePassword(@Request() request, @Body() dto: ChangePasswordDto) {
+    const response = await this.userService.changePassword(
+      request.user['id'],
+      dto,
+    );
+
+    return response;
   }
 
   @Get('/hashtag')
