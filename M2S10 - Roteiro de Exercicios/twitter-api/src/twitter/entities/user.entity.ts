@@ -19,6 +19,9 @@ export class User {
   @Column({ length: 35 })
   username: string;
 
+  @Column({ nullable: true, default: '' })
+  photo: string;
+
   @Column({ length: 300, nullable: true })
   bio: string;
 

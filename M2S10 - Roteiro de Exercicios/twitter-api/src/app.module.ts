@@ -8,6 +8,7 @@ import { JwtStrategy } from './core/auth/guards/strategy/jwt.strategy';
 import { AppService } from './app.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
+import { GoogleStrategy } from './core/auth/guards/strategy/google.strategy';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AppController } from './app.controller';
     AppService,
     AuthService,
     JwtStrategy,
+    GoogleStrategy,
   ],
 })
 export class AppModule {}
